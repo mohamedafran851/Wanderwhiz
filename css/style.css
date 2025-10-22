@@ -1,1 +1,93 @@
-
+body {
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  background-color: #f8f9fa;
+}
+.hero {
+  height: 90vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  color: white;
+  text-shadow: 1px 1px 4px #000;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+.hero > div {
+  position: relative;
+  z-index: 2;
+}
+#scrollTopBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 999;
+  display: none;
+  font-size: 20px;
+}
+.card img {
+  height: 200px;
+  object-fit: cover;
+}
+footer {
+  background: #111;
+  color: #ccc;
+}
+@media (max-width: 768px) {
+  .hero {
+    height: 70vh;
+  }
+}
+body {
+  font-family: 'Segoe UI', sans-serif;
+  scroll-behavior: smooth;
+}
+.hero {
+  height: 100vh;
+  background: url('../images/hero-bg.jpg') center/cover no-repeat;
+  position: relative;
+}
+.hero::before {
+  content: "";
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.4);
+}
+.hero .container {
+  position: relative;
+  z-index: 2;
+}
+.navbar {
+  background: transparent !important;
+  transition: background 0.3s ease;
+}
+.navbar.scrolled {
+  background: #000 !important;
+}
+.destination-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.destination-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+footer {
+  background: #222;
+  color: #aaa;
+}
+.navbar.bg-warning .nav-link {
+  color: #000 !important;
+  font-weight: 500;
+}
+.navbar.bg-warning .nav-link:hover,
+.navbar.bg-warning .nav-link.active {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
