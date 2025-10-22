@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WanderWhiz – Blog</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <style>
+    body {
+      background: #f6fafd;
+    }
+    .navbar-brand {
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 1px;
+    }
+    .blog-hero {
+      background: url('images/blog-hero.jpg') center center/cover no-repeat;
+      color: #fff;
+      padding: 80px 0 40px 0;
+      box-shadow: 0 15px 50px -10px rgba(17, 52, 82, 0.1);
+    }
+    .blog-hero h1 {
+      font-size: 2.7rem;
+      font-weight: 800;
+    }
+    .search-bar {
+      max-width: 500px;
+      margin: 20px auto 40px auto;
+    }
+    .blog-author {
+      font-size: 0.97rem;
+      color: #888;
+    }
+    .card-img-top {
+      object-fit: cover;
+      height: 220px;
+    }
+    .category-tag {
+      font-size: 0.98em;
+      margin-right: 6px;
+      border-radius: 8px;
+      opacity: 0.7;
+      cursor: pointer;
+      transition: opacity 0.2s, box-shadow 0.2s;
+    }
+    .category-tag.active {
+      opacity: 1 !important;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.08);
+    }
+    .modal-header {
+      background: #f8f8f8;
+    }
+    .modal-content {
+      border-radius: 1rem;
+    }
+    .footer {
+      background: #23253b;
+      color: #f4e1af;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-dark" href="index.html">WanderWhiz</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link text-dark" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link text-dark" href="destinations.html">Destinations</a></li>
+          <li class="nav-item"><a class="nav-link active text-dark" href="blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link text-dark" href="quiz.html">Quiz</a></li>
+          <li class="nav-item"><a class="nav-link text-dark" href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <section class="blog-hero text-center" data-aos="fade-down">
+    <div class="container">
+      <h1 class="mb-1">WanderWhiz Travel Blog</h1>
+      <p class="lead mb-0">Your passport to expert tips, hidden gems, and adventure inspiration.</p>
+    </div>
+  </section>
+  <div class="container search-bar">
+    <input
+      type="text"
+      id="blogSearch"
+      class="form-control shadow-sm"
+      placeholder="Search by keyword, title or category..."
+      onkeyup="filterBlogs()"
+    />
+  </div>
+  <div class="text-center mb-4" id="categoryBadges" data-aos="fade-in">
+    <span class="badge bg-secondary category-tag me-1" data-category="All">All</span>
+    <span class="badge bg-primary category-tag me-1" data-category="Budget Travel">Budget Travel</span>
+    <span class="badge bg-success category-tag me-1" data-category="Hidden Gems">Hidden Gems</span>
+    <span class="badge bg-warning text-dark category-tag me-1" data-category="Solo Adventures">Solo Adventures</span>
+    <span class="badge bg-info text-dark category-tag me-1" data-category="Travel Tips">Travel Tips</span>
+    <span class="badge bg-danger category-tag me-1" data-category="Cultural Experiences">Cultural Experiences</span>
+  </div>
+  <section class="container py-3">
+    <div class="row g-4" id="blogCards">
+      <div class="col-md-4 blog-card" data-cat="Budget Travel" data-aos="zoom-in">
+        <div class="card h-100">
+          <img src="images/blog1.jpg" class="card-img-top" alt="Vietnam" />
+          <div class="card-body">
+            <h5 class="card-title">Exploring Vietnam on a Budget</h5>
+            <p class="blog-author">By Alex | June 2025</p>
+            <p class="card-text">
+              Street food, hostels, scooters—see more for less across Vietnam.
+            </p>
+            <button
+              class="btn btn-outline-primary btn-sm"
+              data-bs-toggle="modal"
+              data-bs-target="#blog1Modal"
+            >
+              Read More
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 blog-card" data-cat="Hidden Gems" data-aos="zoom-in">
+        <div class="card h-100">
+          <img src="images/blog2.jpg" class="card-img-top" alt="Lake Bled" />
+          <div class="card-body">
+            <h5 class="card-title">Lake Bled, Slovenia</h5>
+            <p class="blog-author">By Priya | July 2025</p>
+            <p class="card-text">
+              A fairytale lake, castle views, and Slovenia’s hidden heart.
+            </p>
+            <button
+              class="btn btn-outline-primary btn-sm"
+              data-bs-toggle="modal"
+              data-bs-target="#blog2Modal"
+            >
+              Read More
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog 3 -->
+      <div class="col-md-4 blog-card" data-cat="Solo Adventures" data-aos="zoom-in">
+        <div class="card h-100">
+          <img src="images/blog3.jpg" class="card-img-top" alt="Japan" />
+          <div class="card-body">
+            <h5 class="card-title">Solo in Japan: Temples & Tech</h5>
+            <p class="blog-author">By Marco | March 2025</p>
+            <p class="card-text">
+              Easy trains, solo ramen counters, and temple walks in Japan.
+            </p>
+            <button
+              class="btn btn-outline-primary btn-sm"
+              data-bs-toggle="modal"
+              data-bs-target="#blog3Modal"
+            >
+              Read More
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog 4 -->
+      <div class="col-md-4 blog-card" data-cat="Travel Tips" data-aos="zoom-in">
+        <div class="card h-100">
+          <img src="images/blog4.jpg" class="card-img-top" alt="Europe Travel Tips" />
+          <div class="card-body">
+            <h5 class="card-title">Smart Travel in Europe</h5>
+            <p class="blog-author">By Sara | Feb 2025</p>
+            <p class="card-text">
+              Budget passes, packing hacks, and smarter rail journeys.
+            </p>
+            <button
+              class="btn btn-outline-primary btn-sm"
+              data-bs-toggle="modal"
+              data-bs-target="#blog4Modal"
+            >
+              Read More
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog 5 -->
+      <div class="col-md-4 blog-card" data-cat="Cultural Experiences" data-aos="zoom-in">
+        <div class="card h-100">
+          <img src="images/blog5.jpg" class="card-img-top" alt="Diwali India" />
+          <div class="card-body">
+            <h5 class="card-title">Celebrating Diwali in India</h5>
+            <p class="blog-author">By Anita | Jan 2025</p>
+            <p class="card-text">
+              The meaning, food, and best places for India’s festival of lights.
+            </p>
+            <button
+              class="btn btn-outline-primary btn-sm"
+              data-bs-toggle="modal"
+              data-bs-target="#blog5Modal"
+            >
+              Read More
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog 6 -->
+      <div class="col-md-4 blog-card" data-cat="Budget Travel" data-aos="zoom-in">
+        <div class="card h-100">
+          <img src="images/blog6.jpg" class="card-img-top" alt="Portugal" />
+          <div class="card-body">
+            <h5 class="card-title">Portugal on a Shoestring</h5>
+            <p class="blog-author">By Lucas | April 2025</p>
+            <p class="card-text">
+              Discover Lisbon’s charm without breaking the bank.
+            </p>
+            <button
+              class="btn btn-outline-primary btn-sm"
+              data-bs-toggle="modal"
+              data-bs-target="#blog6Modal"
+            >
+              Read More
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog 7 -->
+      <div class="col-md-4 blog-card" data-cat="Hidden Gems" data-aos="zoom-in">
+        <div class="card h-100">
+          <img src="images/blog7.jpg" class="card-img-top" alt="Iceland" />
+          <div class="card-body">
+            <h5 class="card-title">Iceland’s Secret Waterfalls</h5>
+            <p class="blog-author">By Emma | August 2025</p>
+            <p class="card-text">
+              Away from the crowds: stunning, little-known falls to explore.
+            </p>
+            <button
+              class="btn btn-outline-primary btn-sm"
+              data-bs-toggle="modal"
+              data-bs-target="#blog7Modal"
+            >
+              Read More
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog 8 -->
+      <div class="col-md-4 blog-card" data-cat="Travel Tips" data-aos="zoom-in">
+        <div class="card h-100">
+          <img src="images/blog8.jpg" class="card-img-top" alt="Packing Hacks" />
+          <div class="card-body">
+            <h5 class="card-title">Top Packing Hacks for Every Trip</h5>
+            <p class="blog-author">By Mia | May 2025</p>
+            <p class="card-text">
+              Space-saving tips and essentials for stress-free travel.
+            </p>
+            <button
+              class="btn btn-outline-primary btn-sm"
+              data-bs-toggle="modal"
+              data-bs-target="#blog8Modal"
+            >
+              Read More
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Modals (8 modals) -->
+  <!-- Blog 1 Modal -->
+  <div
+    class="modal fade"
+    id="blog1Modal"
+    tabindex="-1"
+    aria-labelledby="blog1ModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content shadow">
+        <div class="modal-header">
+          <h5 class="modal-title" id="blog1ModalLabel">Exploring Vietnam on a Budget</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <img src="images/blog1.jpg" alt="Vietnam" class="img-fluid rounded mb-3" />
+          <p>
+            Vietnam offers an incredible mix of culture, stunning landscapes, and affordability.
+            From bustling street food markets to peaceful countryside, it’s a dream for budget travelers.
+            Stay in affordable hostels, eat delicious street food like pho and banh mi, and explore by motorbike for the ultimate adventure.
+          </p>
+          <p>
+            Don’t miss Halong Bay’s stunning limestone karsts or the historic streets of Hanoi.
+            Always bargain politely in markets and use public transport to save money.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blog 2 Modal -->
+  <div
+    class="modal fade"
+    id="blog2Modal"
+    tabindex="-1"
+    aria-labelledby="blog2ModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content shadow">
+        <div class="modal-header">
+          <h5 class="modal-title" id="blog2ModalLabel">Lake Bled, Slovenia</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <img src="images/blog2.jpg" alt="Lake Bled" class="img-fluid rounded mb-3" />
+          <p>
+            Lake Bled is like a postcard come to life, with its emerald water and tiny island church.
+            Explore the castle overlooking the lake and take a rowboat to the island.
+            The surrounding Julian Alps offer hiking and skiing.
+          </p>
+          <p>
+            Off the beaten path, nearby Vintgar Gorge offers spectacular walks through nature.
+            Visit in spring for fewer crowds and blooming wildflowers.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blog 3 Modal -->
+  <div
+    class="modal fade"
+    id="blog3Modal"
+    tabindex="-1"
+    aria-labelledby="blog3ModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content shadow">
+        <div class="modal-header">
+          <h5 class="modal-title" id="blog3ModalLabel">Solo in Japan: Temples & Tech</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <img src="images/blog3.jpg" alt="Japan" class="img-fluid rounded mb-3" />
+          <p>
+            Japan blends ancient culture with cutting-edge technology, perfect for solo travelers.
+            Experience serene temples in Kyoto and bustling Shibuya in Tokyo.
+          </p>
+          <p>
+            Use the efficient rail system to travel with ease, and enjoy solo dining experiences at ramen counters or sushi bars.
+            Stay in capsule hotels for unique and affordable lodging.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blog 4 Modal -->
+  <div
+    class="modal fade"
+    id="blog4Modal"
+    tabindex="-1"
+    aria-labelledby="blog4ModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content shadow">
+        <div class="modal-header">
+          <h5 class="modal-title" id="blog4ModalLabel">Smart Travel in Europe</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <img src="images/blog4.jpg" alt="Europe Travel Tips" class="img-fluid rounded mb-3" />
+          <p>
+            Make the most of your Europe trip with budget passes like the Eurail Global Pass.
+            Pack light and smart to avoid baggage fees.
+          </p>
+          <p>
+            Book trains and accommodations in advance for the best prices.
+            Try local markets and street food for authentic and affordable meals.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blog 5 Modal -->
+  <div
+    class="modal fade"
+    id="blog5Modal"
+    tabindex="-1"
+    aria-labelledby="blog5ModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content shadow">
+        <div class="modal-header">
+          <h5 class="modal-title" id="blog5ModalLabel">Celebrating Diwali in India</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <img src="images/blog5.jpg" alt="Diwali India" class="img-fluid rounded mb-3" />
+          <p>
+            Diwali, the festival of lights, is celebrated with joy across India.
+            Experience colorful decorations, traditional sweets, and fireworks.
+          </p>
+          <p>
+            Visit cities like Jaipur, Varanasi, and Delhi to immerse yourself in cultural rituals.
+            Respect local customs and participate in community celebrations.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blog 6 Modal -->
+  <div
+    class="modal fade"
+    id="blog6Modal"
+    tabindex="-1"
+    aria-labelledby="blog6ModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content shadow">
+        <div class="modal-header">
+          <h5 class="modal-title" id="blog6ModalLabel">Portugal on a Shoestring</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <img src="images/blog6.jpg" alt="Portugal" class="img-fluid rounded mb-3" />
+          <p>
+            Lisbon is full of charm, historic trams, and delicious food.
+            Explore neighborhoods like Alfama and Bairro Alto without spending a fortune.
+          </p>
+          <p>
+            Use public transport, enjoy affordable seafood, and visit free museums on special days.
+            Portugal offers rich experiences on a budget.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blog 7 Modal -->
+  <div
+    class="modal fade"
+    id="blog7Modal"
+    tabindex="-1"
+    aria-labelledby="blog7ModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content shadow">
+        <div class="modal-header">
+          <h5 class="modal-title" id="blog7ModalLabel">Iceland’s Secret Waterfalls</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <img src="images/blog7.jpg" alt="Iceland" class="img-fluid rounded mb-3" />
+          <p>
+            Beyond the famous waterfalls, Iceland hides lesser-known gems.
+            Explore places like Gljúfrabúi and Kvernufoss, away from the crowds.
+          </p>
+          <p>
+            These secluded spots offer serene beauty and perfect photo ops.
+            Rent a car and take the time to wander Iceland’s incredible landscapes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Blog 8 Modal -->
+  <div
+    class="modal fade"
+    id="blog8Modal"
+    tabindex="-1"
+    aria-labelledby="blog8ModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content shadow">
+        <div class="modal-header">
+          <h5 class="modal-title" id="blog8ModalLabel">Top Packing Hacks for Every Trip</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <img src="images/blog8.jpg" alt="Packing Hacks" class="img-fluid rounded mb-3" />
+          <p>
+            Save space and stay organized with packing cubes and rolling clothes.
+            Always pack a versatile jacket and extra bags for souvenirs.
+          </p>
+          <p>
+            Use travel-size bottles and layer clothes to adapt to different climates.
+            These tips make packing less stressful and more efficient.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer py-4 mt-5 text-center">
+    <div class="container">
+      <p class="mb-1">&copy; 2025 WanderWhiz. All rights reserved.</p>
+      <p>Follow us on 
+        <a href="#" class="text-warning text-decoration-none">Instagram</a>, 
+        <a href="#" class="text-warning text-decoration-none">Twitter</a>, 
+        <a href="#" class="text-warning text-decoration-none">Facebook</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 Bundle (with Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- AOS Animation -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    // Filtering blogs by category badges and search input
+    const badges = document.querySelectorAll('.category-tag');
+    const blogCards = document.querySelectorAll('.blog-card');
+    const searchInput = document.getElementById('blogSearch');
+
+    badges.forEach(badge => {
+      badge.addEventListener('click', () => {
+        badges.forEach(b => b.classList.remove('active'));
+        badge.classList.add('active');
+        filterBlogs();
+      });
+    });
+
+    function filterBlogs() {
+      const selectedCategory = document.querySelector('.category-tag.active')?.dataset.category || 'All';
+      const searchTerm = searchInput.value.toLowerCase();
+
+      blogCards.forEach(card => {
+        const cardCategory = card.dataset.cat;
+        const title = card.querySelector('.card-title').textContent.toLowerCase();
+        const author = card.querySelector('.blog-author').textContent.toLowerCase();
+        const text = card.querySelector('.card-text').textContent.toLowerCase();
+
+        const matchesCategory = selectedCategory === 'All' || cardCategory === selectedCategory;
+        const matchesSearch =
+          title.includes(searchTerm) ||
+          author.includes(searchTerm) ||
+          text.includes(searchTerm) ||
+          cardCategory.toLowerCase().includes(searchTerm);
+
+        if (matchesCategory && matchesSearch) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Set default active badge on page load
+    window.onload = () => {
+      const defaultBadge = document.querySelector('.category-tag[data-category="All"]');
+      if (defaultBadge) defaultBadge.classList.add('active');
+    };
+  </script>
+</body>
+</html>
